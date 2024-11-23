@@ -26,8 +26,7 @@ LEFT JOIN Rastreamento ON Pedido.idPedido = Rastreamento.idPedido;
 </p>
 
 ```sql
-SELECT Pedido.idPedido, Cliente.nome, SUM(Pedido_Produto.quantidade * Pedido_Produto.preco) AS valor_total_calculado
-FROM Pedido_Produto
+SELECT Pedido.idPedido, Cliente.nome, SUM(Pedido_Produto.quantidade * Pedido_Produto.preco) AS Valor Total Calculado FROM Pedido_Produto
 INNER JOIN Pedido ON Pedido_Produto.idPedido = Pedido.idPedido
 INNER JOIN Cliente ON Pedido.idCliente = Cliente.idCliente
 GROUP BY Pedido.idPedido, Cliente.nome;
