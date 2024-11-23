@@ -167,7 +167,7 @@ CREATE INDEX idx_produto_nome ON Produto(Nome);
 CREATE INDEX idx_pedido_cliente ON Pedido(idCliente);
 CREATE INDEX idx_pagamento_pedido ON Pagamento(idPedido);
 
-SHOW TABLES;
+
 
 
 

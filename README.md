@@ -15,7 +15,7 @@ SELECT
         WHEN Rastreamento.numero_rastreio IS NOT NULL AND Rastreamento.status = 'Em Transito' THEN 'Em Transito'
         WHEN Rastreamento.numero_rastreio IS NOT NULL AND Rastreamento.status = 'Entregue' THEN 'Entregue'
         ELSE 'Não Iniciado'
-    END AS status_rastreio
+    END AS Status_Rastreio
 FROM Pedido
 LEFT JOIN Rastreamento ON Pedido.idPedido = Rastreamento.idPedido;
 ```
@@ -38,7 +38,7 @@ GROUP BY Pedido.idPedido, Cliente.nome;
 </p>
 
 ```sql
-SELECT Cliente.idCliente, Cliente.nome AS NomeCliente, COUNT(Pedido.idPedido) AS TotalPedidos
+SELECT Cliente.idCliente, Cliente.nome AS Nome Cliente, COUNT(Pedido.idPedido) AS Total Pedidos
 FROM Cliente INNER JOIN Pedido ON Cliente.idCliente = Pedido.idCliente
 GROUP BY Cliente.idCliente, Cliente.nome ORDER BY TotalPedidos DESC;
 ```
@@ -48,7 +48,7 @@ GROUP BY Cliente.idCliente, Cliente.nome ORDER BY TotalPedidos DESC;
 </p>
 
 ```sql
-SELECT Fornecedor.nome_empresa AS NomeFornecedor, Produto.Nome AS NomeProduto
+SELECT Fornecedor.nome_empresa AS Nome Fornecedor, Produto.Nome AS Nome Produto
 FROM Fornecedor
 INNER JOIN Fornecimento ON Fornecedor.idFornecedor = Fornecimento.idFornecedor
 INNER JOIN Produto ON Fornecimento.idProduto = Produto.idProduto
@@ -60,10 +60,10 @@ LIMIT 0, 1000;
 </p>
 
 ```sql
-SELECT Fornecedor.nome_empresa AS NomeFornecedor, 
-       Produto.Nome AS NomeProduto, 
-       Estoque.quantidade AS QuantidadeEmEstoque, 
-       Estoque.localizacao AS LocalizacaoEstoque
+SELECT Fornecedor.nome_empresa AS Nome Fornecedor, 
+       Produto.Nome AS Nome Produto, 
+       Estoque.quantidade AS Quantidade Em Estoque, 
+       Estoque.localizacao AS Localizacao Estoque
 FROM Fornecedor
 INNER JOIN Fornecimento ON Fornecedor.idFornecedor = Fornecimento.idFornecedor
 INNER JOIN Produto ON Fornecimento.idProduto = Produto.idProduto
@@ -73,7 +73,7 @@ INNER JOIN Estoque ON Produto.idProduto = Estoque.idProduto;
 <strong style="color: #FFA500;">Objetivo : </strong> Retornar os clientes que realizaram mais de 1 pedido.
 
 ```sql
-SELECT Cliente.idCliente, Cliente.nome, COUNT(Pedido.idPedido) AS TotalPedidos
+SELECT Cliente.idCliente, Cliente.nome, COUNT(Pedido.idPedido) AS Total Pedidos
 FROM Cliente
 INNER JOIN Pedido ON Cliente.idCliente = Pedido.idCliente
 GROUP BY Cliente.idCliente, Cliente.nome
@@ -83,8 +83,8 @@ HAVING COUNT(Pedido.idPedido) > 1;
 <strong style="color: #FFA500;">Objetivo : </strong> Retornar os fornecedores cujos produtos fornecidos tenham um valor total superior a R$ 200.000,00.
 
 ```sql
-SELECT Fornecedor.nome_empresa AS NomeFornecedor, 
-       SUM(Pedido_Produto.quantidade * Pedido_Produto.preco) AS ValorTotalFornecido
+SELECT Fornecedor.nome_empresa AS Nome Fornecedor, 
+       SUM(Pedido_Produto.quantidade * Pedido_Produto.preco) AS Valor Total Fornecido
 FROM Fornecedor
 INNER JOIN Fornecimento ON Fornecedor.idFornecedor = Fornecimento.idFornecedor
 INNER JOIN Produto ON Fornecimento.idProduto = Produto.idProduto
@@ -100,10 +100,10 @@ HAVING SUM(Pedido_Produto.quantidade * Pedido_Produto.preco) > 200000;
 ```sql
 SELECT 
     Vendedor.idVendedor,
-    Vendedor.nome AS NomeVendedor,
+    Vendedor.nome AS Nome Vendedor,
     Pedido.idPedido,
-    SUM(Pedido_Produto.quantidade * Pedido_Produto.preco) AS ValorTotalPedido,
-    GROUP_CONCAT(DISTINCT Produto.Nome ORDER BY Produto.Nome) AS ProdutosVendidos
+    SUM(Pedido_Produto.quantidade * Pedido_Produto.preco) AS Valor Total Pedido,
+    GROUP_CONCAT(DISTINCT Produto.Nome ORDER BY Produto.Nome) AS Produtos Vendidos
 FROM Pedido
 INNER JOIN Vendedor ON Pedido.idVendedor = Vendedor.idVendedor
 INNER JOIN Pedido_Produto ON Pedido.idPedido = Pedido_Produto.idPedido
